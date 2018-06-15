@@ -15,5 +15,4 @@ if path not in sys.path:
     sys.path.append(path)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web_classifier.settings")
-
 application = get_wsgi_application()
