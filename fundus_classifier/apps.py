@@ -6,3 +6,4 @@ from django.apps import AppConfig
 
 class FundusClassifierConfig(AppConfig):
     name = 'fundus_classifier'
+
