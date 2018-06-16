@@ -11,9 +11,10 @@ import tensorflow as tf
 import cam
 import time
 
-
+"""
 def load_model(model_path):
-    sess = tf.Session()
+    graph=tf.Graph()
+    sess = tf.Session(graph = graph)
     saver = tf.train.import_meta_graph(meta_graph_or_file=model_path+'.meta') #example model path ./models/fundus_300/5/model_1.ckpt
     saver.restore(sess, save_path=model_path) # example model path ./models/fundus_300/5/model_1.ckpt
     x_ = tf.get_default_graph().get_tensor_by_name('x_:0')
@@ -25,6 +26,22 @@ def load_model(model_path):
     cam_ = tf.get_default_graph().get_tensor_by_name('classmap:0')
     cam_ind = tf.get_default_graph().get_tensor_by_name('cam_ind:0')
     return sess ,pred_ , x_ , is_training_
+"""
+def load_model(model_path):
+    graph=tf.Graph()
+    sess = tf.Session(graph = graph)
+    with graph.as_default():
+        saver = tf.train.import_meta_graph(meta_graph_or_file=model_path+'.meta' , clear_devices=True) #example model path ./models/fundus_300/5/model_1.ckpt
+        saver.restore(sess, save_path=model_path) # example model path ./models/fundus_300/5/model_1.ckpt
+        x_ = tf.get_default_graph().get_tensor_by_name('x_:0')
+        y_ = tf.get_default_graph().get_tensor_by_name('y_:0')
+        pred_ = tf.get_default_graph().get_tensor_by_name('softmax:0')
+        is_training_=tf.get_default_graph().get_tensor_by_name('is_training:0')
+        top_conv = tf.get_default_graph().get_tensor_by_name('top_conv:0')
+        logits = tf.get_default_graph().get_tensor_by_name('logits:0')
+        cam_ = tf.get_default_graph().get_tensor_by_name('classmap:0')
+        cam_ind = tf.get_default_graph().get_tensor_by_name('cam_ind:0')
+        return sess ,pred_ , x_ , is_training_
 
 def eval(test_img , sess , pred_op , x_  , is_training_):
     pred = sess.run(pred_op , feed_dict={x_ : test_img , is_training_:False})
