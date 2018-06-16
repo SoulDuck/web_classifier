@@ -15,8 +15,8 @@ import eval
 print 'Load Session'
 model_path = '/home/ubuntu/web_classifier/models/step_38300_acc_0.890909016132/model'
 sess_ret ,pred_op_ret , x_ret, is_training_ret = eval.load_model(model_path)
-#sess_cat ,pred_op_cat , x_cat , is_training_cat = eval.load_model(model_path)
-#sess_gla ,pred_op_gla , x_gla , is_training_gla = eval.load_model(model_path)
+sess_cat ,pred_op_cat , x_cat , is_training_cat = eval.load_model(model_path)
+sess_gla ,pred_op_gla , x_gla , is_training_gla = eval.load_model(model_path)
 
 
 
@@ -36,14 +36,26 @@ def upload_file(request):
             #img = img.reshape([1,] + list(np.shape(img)))
             #model_path = './models/step_38300_acc_0.890909016132/model'
             # Eval Image
-            pred_list=eval.eval(img,sess_ret,pred_op_ret , x_ret  , is_training_ret)
-            if pred_list[0][0] > 0.5 :
-                value = 'NORMAL'
-            else:
-                value = 'ABNORMAL'
+            pred_list_ret=eval.eval(img,sess_ret,pred_op_ret , x_ret  , is_training_ret)
+            pred_list_cat = eval.eval(img, sess_cat, pred_op_cat, x_cat, is_training_cat)
+            pred_list_gla = eval.eval(img, sess_gla, pred_op_gla, x_gla, is_training_gla)
 
+            if pred_list_ret[0][0] > 0.5 :
+                value_ret = 'NORMAL'
+            else:
+                value_ret = 'ABNORMAL'
+
+            if pred_list_cat[0][0] > 0.5 :
+                value_cat = 'NORMAL'
+            else:
+                value_cat = 'ABNORMAL'
+
+            if pred_list_gla[0][0] > 0.5 :
+                value_gla = 'NORMAL'
+            else:
+                value_gla = 'ABNORMAL'
             print 'form is save'
-            return render(request , 'show_acc.html' , {'value':value})
+            return render(request , 'show_acc.html' , {'value_ret':value_ret , 'value_cat':value_cat , 'value_gla':value_gla })
     else:
         form = UploadForm()
     return render(request,  'upload.html', {'form' : form})
