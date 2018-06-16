@@ -13,7 +13,7 @@ import eval
 # Create your views here.
 
 print 'Load Session'
-model_path = './models/step_38300_acc_0.890909016132/model'
+model_path = '/home/ubuntu/web_classifier/models/step_38300_acc_0.890909016132/model'
 sess ,pred_op , x_ , is_training_ = eval.load_model(model_path)
 
 
