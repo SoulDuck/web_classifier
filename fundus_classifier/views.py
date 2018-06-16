@@ -18,8 +18,8 @@ model_path_ret= '/home/ubuntu/web_classifier/models/step_38300_acc_0.89090901613
 model_path_gla= '/home/ubuntu/web_classifier/models/step_34200_acc_0.882777810097/model'
 model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456/model'
 sess_ret ,pred_op_ret , x_ret, is_training_ret = eval.load_model(model_path_ret)
-sess_cat ,pred_op_cat , x_cat , is_training_cat = eval.load_model(model_path)
-sess_gla ,pred_op_gla , x_gla , is_training_gla = eval.load_model(model_path)
+sess_cat ,pred_op_cat , x_cat , is_training_cat = eval.load_model(model_path_cat)
+sess_gla ,pred_op_gla , x_gla , is_training_gla = eval.load_model(model_path_gla)
 
 
 
