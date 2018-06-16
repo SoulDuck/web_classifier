@@ -14,7 +14,10 @@ import eval
 
 print 'Load Session'
 model_path = '/home/ubuntu/web_classifier/models/step_38300_acc_0.890909016132/model'
-sess ,pred_op , x_ , is_training_ = eval.load_model(model_path)
+sess_ret ,pred_op_ret , x_ret, is_training_ret = eval.load_model(model_path)
+#sess_cat ,pred_op_cat , x_cat , is_training_cat = eval.load_model(model_path)
+#sess_gla ,pred_op_gla , x_gla , is_training_gla = eval.load_model(model_path)
+
 
 
 
@@ -33,7 +36,7 @@ def upload_file(request):
             #img = img.reshape([1,] + list(np.shape(img)))
             #model_path = './models/step_38300_acc_0.890909016132/model'
             # Eval Image
-            pred_list=eval.eval(img,sess,pred_op , x_ , is_training_)
+            pred_list=eval.eval(img,sess_ret,pred_op_ret , x_ret  , is_training_ret)
             if pred_list[0][0] > 0.5 :
                 value = 'NORMAL'
             else:
