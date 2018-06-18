@@ -196,8 +196,8 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         print np.shape(cam_vis_abnormal)
         print np.max(cam_vis_abnormal)
         #Image.fromarray(cam_vis_abnormal.astype('uint8')).save('{}/abnormal_actmap.png'.format(save_dir))
-        plt.imsave('{}/abnormal_actmap.png'.format(save_dir), cam_vis_abnormal)
+        #plt.imsave('{}/abnormal_actmap.png'.format(save_dir), cam_vis_abnormal)
         #plt.imsave('{}/normal_actmap.png'.format(save_dir), cam_vis_normal)
-        plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
+        #plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
         return '{}/blend_img.png'.format(save_dir)
 
