@@ -95,7 +95,6 @@ def overlay(actmap , ori_img ,save_path , factor):
     assert factor <= 1 and factor >= 0
     cmap = plt.cm.jet
     tmp_path='/home/ubuntu/web_classifier/media/tmp.png'
-    tmp_path = '../media/tmp.png'
     plt.imsave(fname=tmp_path, arr=cmap(actmap))
     cam_img=Image.open(tmp_path)
     #np_cam_img=np.asarray(cam_img).astype('uint8') #img 2 numpy
