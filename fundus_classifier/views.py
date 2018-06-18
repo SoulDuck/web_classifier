@@ -36,8 +36,9 @@ def upload_file(request):
             #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
             for key in request.FILES:
                 fname=request.FILES[key]
+
                 img=Image.open(fname)
-                assert img == 3 , "{} {} {} {} ".format(type(img) , np.shape(img)  ,type(fname) , key)
+                assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
                 pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
