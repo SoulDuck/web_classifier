@@ -142,6 +142,7 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
     while(True):
         save_dir = '{}/{}'.format(save_root_folder, folder_n)
         if not os.path.isdir(save_dir):
+            os.makedirs(save_dir)
             break
         else:
             folder_n +=1
