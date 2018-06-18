@@ -32,10 +32,10 @@ def upload_file(request):
         sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret, logits_ret = sess_ret_ops
         if form.is_valid():
             form.save()
-            ret_json={}
+            ret_json=[]
             #fnames=str(request.FILES['file'])
             for i,key in enumerate(request.FILES):
-                fname=request.FILES[key]
+                fname = request.FILES[key]
 
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
@@ -67,7 +67,7 @@ def upload_file(request):
                 ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
                      'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
                               'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
-                ret_json[i] = ret_values
+                ret_json.append(ret_values)
             return JsonResponse(ret_json)
     else:
         form = UploadForm()
