@@ -138,11 +138,20 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
     if not os.path.isdir(save_root_folder):
         os.mkdir(save_root_folder)
 
+    folder_n = 0
+    while(True):
+        save_dir = '{}/{}'.format(save_root_folder, folder_n)
+        if not os.path.isdir(save_dir):
+            break
+        else:
+            folder_n +=1
+
+
     for s in range(num_images):
         msg='\r {}/{}'.format(s , num_images)
         sys.stdout.write(msg)
         sys.stdout.flush()
-        save_dir='{}/img_{}'.format(save_root_folder,s)
+        save_dir='{}/{}/img_{}'.format(save_root_folder,folder_n,s)
         # Make Folder
         try:
             os.mkdir(save_dir);
