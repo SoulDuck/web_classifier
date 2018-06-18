@@ -101,7 +101,8 @@ def overlay(actmap , ori_img ,save_path , factor):
     ori_img=Image.fromarray(ori_img.astype('uint8')).convert("RGBA")
     overlay_img = Image.blend(ori_img, cam_img, factor).convert('RGB')
     #return np.asarray(overlay_img)
-    plt.imsave(save_path, overlay_img)
+    overlay_img.save(save_path)
+    #plt.imsave(save_path, overlay_img)
     save_dir,name=os.path.split(save_path)
     name=os.path.splitext(name)[0]+'_ori.png'
     plt.imsave(os.path.join(save_dir ,name), ori_img)
