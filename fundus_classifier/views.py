@@ -34,8 +34,8 @@ def upload_file(request):
             form.save()
             ret_json = []
             #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
-            for f_  in request.FILES.getlist('file'):
-                fname = request.FILES[f_]
+            for fname in request.FILES.getlist('file'):
+
 
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
