@@ -102,10 +102,11 @@ def overlay(actmap , ori_img ,save_path , factor):
     overlay_img = Image.blend(ori_img, cam_img, factor).convert('RGB')
     #return np.asarray(overlay_img)
     overlay_img.save(save_path)
-    #plt.imsave(save_path, overlay_img)
+    plt.imsave(save_path, overlay_img)
     save_dir,name=os.path.split(save_path)
     name=os.path.splitext(name)[0]+'_ori.png'
-    plt.imsave(os.path.join(save_dir ,name), ori_img)
+    #plt.imsave(os.path.join(save_dir ,name), ori_img)
+    ori_img.save(os.path.join(save_dir ,name))
     plt.close();
     os.remove(tmp_path)
 
