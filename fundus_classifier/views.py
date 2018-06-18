@@ -32,13 +32,12 @@ def upload_file(request):
         sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret, logits_ret = sess_ret_ops
         if form.is_valid():
             form.save()
-            ret_json = []
+            ret_json = {}
             #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
-            for key in request.FILES:
+            for i,key in enumerate(request.FILES):
                 fname=str(request.FILES[key])
-
-                img=Image.open(fname)
-                assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
+                #img=Image.open(fname)
+                #assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
                 pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
@@ -69,7 +68,7 @@ def upload_file(request):
                 ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
                      'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
                               'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
-                ret_json.append(ret_values)
+                ret_json[i]=ret_values
             return JsonResponse(ret_json)
     else:
         form = UploadForm()
