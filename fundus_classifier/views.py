@@ -21,7 +21,9 @@ sess_cat_ops= load_model(model_path_cat)
 
 #sess ,pred_ , x_ , is_training_ , top_conv
 
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST , request.FILES)

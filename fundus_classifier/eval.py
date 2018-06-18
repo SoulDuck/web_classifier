@@ -95,14 +95,11 @@ def overlay(actmap , ori_img ,save_path , factor):
     assert factor <= 1 and factor >= 0
     cmap = plt.cm.jet
     tmp_path='/home/ubuntu/web_classifier/media/tmp.png'
+    tmp_path = '../media/tmp.png'
     plt.imsave(fname=tmp_path, arr=cmap(actmap))
     cam_img=Image.open(tmp_path)
     #np_cam_img=np.asarray(cam_img).astype('uint8') #img 2 numpy
     ori_img=Image.fromarray(ori_img.astype('uint8')).convert("RGBA")
-
-
-    print np.shape(ori_img)
-    print np.shape(cam_img)
     overlay_img = Image.blend(ori_img, cam_img, factor).convert('RGB')
     #return np.asarray(overlay_img)
     plt.imsave(save_path, overlay_img)
