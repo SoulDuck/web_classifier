@@ -33,6 +33,9 @@ def upload_file(request):
         if form.is_valid():
             form.save()
             fname=str(request.FILES['file'])
+            fnames = []
+            for uploaded_file in request.FILES.getlist('file'):
+                fnames.append(upload_file)
 
             # load Image
             f_path=os.path.join(settings.MEDIA_ROOT , fname)
@@ -63,7 +66,7 @@ def upload_file(request):
             origina_path=origina_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
             ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
                  'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
-                          'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':fname}
+                          'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fnames)}
             return JsonResponse(ret_values)
     else:
         form = UploadForm()
