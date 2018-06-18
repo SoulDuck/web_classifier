@@ -62,9 +62,9 @@ def upload_file(request):
             #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
             #return HttpResponseRedirect({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
 
-            ret_values = json.dumps(
-                {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
-                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time })
+
+            ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
+                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time }
             return JsonResponse(ret_values)
     else:
         form = UploadForm()
