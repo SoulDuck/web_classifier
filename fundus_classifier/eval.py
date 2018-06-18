@@ -50,14 +50,14 @@ def clahe_equalized(img):
     return img
 
 def get_pred(img, sess_ret_info, sess_gla_info, sess_cat_info):
-    img = crop_margin_fundus(img)
+
     sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret ,logits_ret = sess_ret_info
     sess_gla, pred_op_gla, x_gla, y_gla, is_training_gla, top_conv_gla, cam_gla, cam_ind_gla, logits_gla = sess_gla_info
     sess_cat, pred_op_cat, x_cat, y_cat, is_training_cat ,top_conv_cat ,cam_cat, cam_ind_cat, logits_cat = sess_cat_info
-
+    #img = crop_margin_fundus(img)
     # Multiple Images
-    img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
-    img = clahe_equalized(img)
+    #img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
+    #img = clahe_equalized(img)
     h, w, ch = np.shape(img)
     img = img.reshape([1, h, w, ch])
     img = img / 255.
@@ -94,7 +94,7 @@ def diagnose_images(predictions):
 def overlay(actmap , ori_img ,save_path , factor):
     assert factor <= 1 and factor >= 0
     cmap = plt.cm.jet
-    tmp_path='../media/tmp.png'
+    tmp_path='/Users/seongjungkim/PycharmProjects/web_classifier/media/tmp.png'
     tmp_path='/home/ubuntu/web_classifier/media/tmp.png'
     plt.imsave(fname=tmp_path, arr=cmap(actmap))
     cam_img=Image.open(tmp_path)
@@ -116,8 +116,14 @@ def overlay(actmap , ori_img ,save_path , factor):
 
 def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_train, y , save_root_folder):
 
+
+    for img in test_imgs:
+        img=Image.fromarray(img)
+        crop_margin_fundus(img)
     if test_imgs.max() > 1 :
         test_imgs=test_imgs/255.
+
+
 
     num_images=len(test_imgs[:])
     ABNORMAL_LABEL =np.asarray([[0,1]])
@@ -131,9 +137,8 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         pass;
     if not os.path.isdir(save_root_folder):
         os.mkdir(save_root_folder)
+
     for s in range(num_images):
-
-
         msg='\r {}/{}'.format(s , num_images)
         sys.stdout.write(msg)
         sys.stdout.flush()
@@ -152,7 +157,9 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
             plt.imsave('{}/image_test.png'.format(save_dir) ,test_imgs[s].reshape([test_imgs[s].shape[0] \
                                                                                       , test_imgs.shape[1]]))
         else :
-            img=Image.fromarray(test_imgs[s].astype('uint8'))
+
+            img=Image.fromarray((test_imgs[s]*255).astype('uint8'))
+            print np.max(img)
 
             #plt.imsave('{}/image_test.png'.format(save_dir), test_imgs[s])
             img.save('{}/image_test.png'.format(save_dir))

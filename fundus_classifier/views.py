@@ -6,12 +6,12 @@ from forms import *
 from PIL import Image
 import numpy as np
 import os
-from eval import  load_model  , get_pred , eval_inspect_cam
-from utils import get_patinfo , dicom_checker , fundus_laterality
+from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized
+from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
 
 # Create your views here.
-
-
+#/Users/seongjungkim/PycharmProjects/web_classifier/models
+#/home/ubuntu/web_classifier
 model_path_ret= '/home/ubuntu/web_classifier/models/step_23300_acc_0.892063558102/model'
 model_path_gla= '/home/ubuntu/web_classifier/models/step_34200_acc_0.882777810097/model'
 model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456/model'
@@ -43,23 +43,18 @@ def upload_file(request):
             LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
             print LR
 
-            # Cut out useless part of fundus image
-            #cropped_img=crop_margin_fundus(img)
-            # Get Probability
+            img = crop_margin_fundus(img)
+            # Multiple Images
+            img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
+            img = clahe_equalized(img)
+
             value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
-            # Get Actmap
-            ret_x = sess_ret_ops[2]
 
-            # CLAHE
-            #img = np.asarray(img)
-            #img_h, img_w, img_ch = np.shape(img)
-            #img = clahe_equalized(img)
-            # Normalizae
-            #np_img = img.reshape([1, img_h, img_w, img_ch]) / 255.
-
+            actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
+            actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
             np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
             actmap_path=eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
-                             logits_ret, '/home/ubuntu/web_classifier/media/actmap')
+                             logits_ret, actmap_dir)
             print actmap_path
             print 'form is save'
             #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
