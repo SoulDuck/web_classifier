@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
 import web_classifier.settings as settings
 from forms import *
@@ -60,6 +60,8 @@ def upload_file(request):
             print 'form is save'
             #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
             #return HttpResponseRedirect({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
+            return HttpResponse({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat},
+                                content_type="application/json")
     else:
         form = UploadForm()
     return render(request,  'upload.html', {'form' : form})
