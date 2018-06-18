@@ -95,6 +95,7 @@ def overlay(actmap , ori_img ,save_path , factor):
     assert factor <= 1 and factor >= 0
     cmap = plt.cm.jet
     tmp_path='/home/ubuntu/web_classifier/media/tmp.png'
+    tmp_path='../media/tmp.png'
     plt.imsave(fname=tmp_path, arr=cmap(actmap))
     cam_img=Image.open(tmp_path)
     #np_cam_img=np.asarray(cam_img).astype('uint8') #img 2 numpy
@@ -142,12 +143,19 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
             os.mkdir(save_dir);
         except Exception as e :
             print e;
+
+
+
+
         # Check Image Channel
         if test_imgs[s].shape[-1]==1:
             plt.imsave('{}/image_test.png'.format(save_dir) ,test_imgs[s].reshape([test_imgs[s].shape[0] \
                                                                                       , test_imgs.shape[1]]))
         else :
-            plt.imsave('{}/image_test.png'.format(save_dir), test_imgs[s])
+            img=Image.fromarray(test_imgs[s].astype('uint8'))
+
+            #plt.imsave('{}/image_test.png'.format(save_dir), test_imgs[s])
+            img.save('{}/image_test.png'.format(save_dir))
 
         # Image Reshape
         if test_imgs[s].max() <= 1 :
@@ -185,6 +193,9 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         cam_vis_abnormal=cmap(cam_vis_abnormal)
 
         # Blend Images
+        print np.shape(cam_vis_abnormal)
+        print np.max(cam_vis_abnormal)
+        #Image.fromarray(cam_vis_abnormal.astype('uint8')).save('{}/abnormal_actmap.png'.format(save_dir))
         plt.imsave('{}/abnormal_actmap.png'.format(save_dir), cam_vis_abnormal)
         #plt.imsave('{}/normal_actmap.png'.format(save_dir), cam_vis_normal)
         plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
