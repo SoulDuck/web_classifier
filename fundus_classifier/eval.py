@@ -164,7 +164,7 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
 
         # Check Image Channel
         if test_imgs[s].shape[-1]==1:
-            plt.imsave('{}/image_test.png'.format(save_dir) ,test_imgs[s].reshape([test_imgs[s].shape[0] \
+            plt.imsave('{}/original_image.png'.format(save_dir) ,test_imgs[s].reshape([test_imgs[s].shape[0] \
                                                                                       , test_imgs.shape[1]]))
         else :
 
@@ -172,7 +172,7 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
             print np.max(img)
 
             #plt.imsave('{}/image_test.png'.format(save_dir), test_imgs[s])
-            img.save('{}/image_test.png'.format(save_dir))
+            img.save('{}/original_image.png'.format(save_dir))
 
         # Image Reshape
         if test_imgs[s].max() <= 1 :
@@ -216,5 +216,5 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         #plt.imsave('{}/abnormal_actmap.png'.format(save_dir), cam_vis_abnormal)
         #plt.imsave('{}/normal_actmap.png'.format(save_dir), cam_vis_normal)
         #plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
-        return '{}/blend_actmap.png'.format(save_dir) ,'{}/image_test.png'.format(save_dir)
+        return '{}/blend_actmap.png'.format(save_dir) ,'{}/original_image.png'.format(save_dir)
 
