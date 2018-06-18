@@ -32,42 +32,43 @@ def upload_file(request):
         sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret, logits_ret = sess_ret_ops
         if form.is_valid():
             form.save()
-            fname=str(request.FILES['file'])
-            fnames = []
-            for uploaded_file in request.FILES.getlist('file'):
-                fnames.append(upload_file)
+            ret_json={}
+            #fnames=str(request.FILES['file'])
+            for i,key in enumerate(request.FILES):
+                fname=request.FILES[key]
 
-            # load Image
-            f_path=os.path.join(settings.MEDIA_ROOT , fname)
-            pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
-            # dicom check
-            if dicom_checker(f_path):
-                pat_id, exam_date, exam_time , img = get_patinfo(f_path)
-            else: # PNG , JPEG , JPG ...etc
-                img = Image.open(f_path)
-            # LR_checker
-            LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
-            print LR
+                # load Image
+                f_path=os.path.join(settings.MEDIA_ROOT , fname)
+                pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
+                # dicom check
+                if dicom_checker(f_path):
+                    pat_id, exam_date, exam_time , img = get_patinfo(f_path)
+                else: # PNG , JPEG , JPG ...etc
+                    img = Image.open(f_path)
+                # LR_checker
+                LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
+                print LR
 
-            img = crop_margin_fundus(img)
-            # Multiple Images
-            img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
-            img = clahe_equalized(img)
+                img = crop_margin_fundus(img)
+                # Multiple Images
+                img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
+                img = clahe_equalized(img)
 
-            value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
+                value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
 
-            actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
-            actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
-            np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-            actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
-                             logits_ret, actmap_dir)
+                actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
+                actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
+                np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
+                actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
+                                 logits_ret, actmap_dir)
 
-            actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
-            origina_path=origina_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
-            ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
-                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
-                          'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fnames)}
-            return JsonResponse(ret_values)
+                actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
+                origina_path=origina_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
+                ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
+                     'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
+                              'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fnames)}
+                ret_json[i] = ret_values
+            return JsonResponse(ret_json)
     else:
         form = UploadForm()
     return render(request,  'upload.html', {'form' : form})
