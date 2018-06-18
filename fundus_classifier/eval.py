@@ -206,5 +206,5 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         #plt.imsave('{}/abnormal_actmap.png'.format(save_dir), cam_vis_abnormal)
         #plt.imsave('{}/normal_actmap.png'.format(save_dir), cam_vis_normal)
         #plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
-        return '{}/blend_actmap.png'.format(save_dir)
+        return '{}/blend_actmap.png'.format(save_dir) ,'{}/image_test.png'.format(save_dir)
 

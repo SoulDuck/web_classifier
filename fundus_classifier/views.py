@@ -55,16 +55,13 @@ def upload_file(request):
             actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
             actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
             np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-            actmap_path=eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
+            actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
                              logits_ret, actmap_dir)
-            print actmap_path
-            print 'form is save'
-            #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
-            #return HttpResponseRedirect({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
 
             actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
             ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
-                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  , 'is_dicom':str(dicom_checker(f_path))}
+                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
+                          'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path}
             return JsonResponse(ret_values)
     else:
         form = UploadForm()
