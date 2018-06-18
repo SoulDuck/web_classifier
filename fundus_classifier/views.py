@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.http import JsonResponse
-from __future__ import unicode_literals
 from django.http import HttpResponse
 from django.shortcuts import render
 import web_classifier.settings as settings
