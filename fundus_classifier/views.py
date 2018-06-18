@@ -65,8 +65,7 @@ def upload_file(request):
             ret_values = json.dumps(
                 {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
                  'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time })
-            return JsonResponse(ret_values,
-                                content_type="application/json")
+            return JsonResponse(ret_values)
     else:
         form = UploadForm()
     return render(request,  'upload.html', {'form' : form})
