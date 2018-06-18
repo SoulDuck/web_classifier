@@ -62,7 +62,7 @@ def upload_file(request):
             #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
             #return HttpResponseRedirect({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
 
-
+            actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/')
             ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
                  'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  , 'is_dicom':str(dicom_checker(f_path))}
             return JsonResponse(ret_values)
