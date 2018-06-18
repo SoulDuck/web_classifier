@@ -61,7 +61,7 @@ def upload_file(request):
             print actmap_path
             print 'form is save'
             #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
-            return {'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat}
+            #return {'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat}
     else:
         form = UploadForm()
     return render(request,  'upload.html', {'form' : form})
