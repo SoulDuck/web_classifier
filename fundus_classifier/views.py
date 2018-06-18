@@ -32,10 +32,10 @@ def upload_file(request):
         sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret, logits_ret = sess_ret_ops
         if form.is_valid():
             form.save()
-            ret_json=[]
-            #fnames=str(request.FILES['file'])
-            for i,key in enumerate(request.FILES):
-                fname = request.FILES[key]
+            ret_json = []
+            #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
+            for f_  in request.FILES.getlist('file'):
+                fname = request.FILES[f_]
 
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
