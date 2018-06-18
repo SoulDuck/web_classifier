@@ -7,6 +7,7 @@ from forms import *
 from PIL import Image
 import numpy as np
 import os
+import json
 from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized
 from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
 
@@ -60,7 +61,8 @@ def upload_file(request):
             print 'form is save'
             #return render(request, 'show_acc.html',{'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
             #return HttpResponseRedirect({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
-            return HttpResponse({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat},
+            ret_values=json.dump({'value_ret': value_ret, 'value_gla': value_gla, 'value_cat': value_cat})
+            return HttpResponse(ret_values,
                                 content_type="application/json")
     else:
         form = UploadForm()
