@@ -175,7 +175,7 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         # Normalize Actmap
         cam_vis_abnormal =(cam_ans_abnormal - np.min(cam_ans_abnormal))/(np.max(cam_ans_abnormal) - np.min(cam_ans_abnormal))
         #cam_vis_abnormal=map(lambda x: (x-x.min())/(x.max()-x.min()) , cam_ans_abnormal)
-        plt.imsave('/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap/img_0/tmp.png' , cam_vis_abnormal  )
+        #plt.imsave('/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap/img_0/tmp.png' , cam_vis_abnormal  )
 
         # Blend Images
         blend_img=overlay(cam_vis_abnormal, test_imgs[s]*255, '{}/blend_actmap.png'.format(save_dir) , 0.2)
