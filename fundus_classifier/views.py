@@ -64,7 +64,7 @@ def upload_file(request):
 
 
             ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': str(value_cat), 'LR': LR,
-                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time }
+                 'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  , 'is_dicom':str(dicom_checker(f_path))}
             return JsonResponse(ret_values)
     else:
         form = UploadForm()
