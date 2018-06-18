@@ -34,9 +34,10 @@ def upload_file(request):
             form.save()
             ret_json = []
             #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
-            for fname in request.FILES:
-
+            for key in request.FILES:
+                fname=request.FILES[key]
                 img=Image.open(fname)
+                assert img == 3 , "{} {} ".format(type(img) , np.shape(img))
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
                 pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
