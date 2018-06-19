@@ -39,7 +39,9 @@ def upload_file(request):
             for i ,key in enumerate(request.FILES):
                 fname = str(request.FILES[key])
                 fnames.append(fname)
-            assert AssertionError , '{}'.format(fnames)
+
+
+            assert fnames == 3, '{}'.format(fnames)
             for i,key in enumerate(request.FILES):
                 fname=str(request.FILES[key])
                 if i==1:
