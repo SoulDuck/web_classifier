@@ -71,7 +71,6 @@ def upload_file(request):
                               'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
                 ret_json.append(ret_values)
             ret_json=json.dumps(ret_json)
-            ret_json=serializers.serialize('json' , ret_json)
             return JsonResponse(ret_json , safe = False)
     else:
         form = UploadForm()
