@@ -69,7 +69,7 @@ def upload_file(request):
                      'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
                               'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
                 ret_json.append(ret_values)
-            ret_json=json.dump(ret_json)
+            ret_json=json.dumps(ret_json)
             return JsonResponse(ret_json)
     else:
         form = UploadForm()
