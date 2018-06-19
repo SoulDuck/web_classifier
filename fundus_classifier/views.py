@@ -49,8 +49,6 @@ def upload_file(request):
 
 
                 fname=str(request.FILES[key])
-                if i==1:
-                    raise AssertionError , '{}'.format(fname)
                 #img=Image.open(fname)
                 #assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
                 # load Image
