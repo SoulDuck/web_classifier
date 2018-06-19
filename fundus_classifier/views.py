@@ -45,9 +45,6 @@ def upload_file(request):
             assert fnames == 3, '{}'.format(fnames)
             """
             for i,key in enumerate(request.FILES):
-
-
-
                 fname=str(request.FILES[key])
                 #img=Image.open(fname)
                 #assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
