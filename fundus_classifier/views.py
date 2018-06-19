@@ -35,6 +35,11 @@ def upload_file(request):
             form.save()
             ret_json = []
             #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
+            fnames = [ ]
+            for i ,key in enumerate(request.FILES):
+                fname = str(request.FILES[key])
+                fnames.append(fname)
+            assert AssertionError , '{}'.format(fnames)
             for i,key in enumerate(request.FILES):
                 fname=str(request.FILES[key])
                 if i==1:
