@@ -8,6 +8,7 @@ from PIL import Image
 import numpy as np
 import os
 import json
+from django.core import serializers
 from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized
 from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
 
@@ -70,7 +71,8 @@ def upload_file(request):
                               'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
                 ret_json.append(ret_values)
             ret_json=json.dumps(ret_json)
-            return JsonResponse(ret_json)
+            ret_json=serializers.serialize('json' , ret_json)
+            return JsonResponse(ret_json , safe = False)
     else:
         form = UploadForm()
     return render(request,  'upload.html', {'form' : form})
