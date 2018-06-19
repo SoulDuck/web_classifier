@@ -80,7 +80,7 @@ def upload_file(request):
 
                 actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
                 origina_path=origina_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
-                ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': value_cat, 'LR': LR,
+                ret_values = {'value_ret': str(value_ret), 'value_gla': str(value_gla), 'value_cat': float(value_cat), 'LR': LR,
                      'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
                               'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
                 ret_json.append(ret_values)
