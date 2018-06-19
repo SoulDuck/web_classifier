@@ -45,6 +45,9 @@ def upload_file(request):
             assert fnames == 3, '{}'.format(fnames)
             """
             for i,key in enumerate(request.FILES):
+
+
+
                 fname=str(request.FILES[key])
                 if i==1:
                     raise AssertionError , '{}'.format(fname)
@@ -52,6 +55,11 @@ def upload_file(request):
                 #assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
+                # Save Image
+                img = Image.open(request.FILES[key])
+                img.save(f_path)
+
+
                 pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
                 # dicom check
                 if dicom_checker(f_path):
