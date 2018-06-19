@@ -55,7 +55,7 @@ def upload_file(request):
                 img.save(f_path)
 
 
-                pat_id, exam_date, exam_time = 'None' , 'None' , 'None'
+                pat_id, exam_date, exam_time = None , None , None
                 # dicom check
                 if dicom_checker(f_path):
                     pat_id, exam_date, exam_time , img = get_patinfo(f_path)
@@ -82,7 +82,7 @@ def upload_file(request):
                 origina_path=origina_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
                 ret_values = {'value_ret': float(value_ret), 'value_gla': float(value_gla), 'value_cat': float(value_cat), 'LR': LR,
                      'actmap_path': actmap_path ,'patient_id':pat_id, 'exam_date' :exam_date, 'exam_time':exam_time  ,
-                              'is_dicom':str(dicom_checker(f_path)) , 'origin_path':origina_path , 'fname':str(fname)}
+                              'is_dicom':dicom_checker(f_path) , 'origin_path':origina_path , 'fname':str(fname)}
                 ret_json.append(ret_values)
             ret_json=json.dumps(ret_json)
             return JsonResponse(ret_json , safe = False)
