@@ -22,12 +22,13 @@ def get_patinfo(path): #
     dc=dicom.read_file(path)
     exam_date = dc.StudyDate # yyyymmdd
     exam_time = dc.StudyTime # hhmmss
+    pat_name =dc.PatientName
     pat_id = dc.PatientID
     np_img = dc.pixel_array.astype('uint8')
     ch, h, w =np.shape(np_img)
     np_img=np.reshape(np_img ,[h, w ,ch] )
     img = Image.fromarray(np_img)
-    return pat_id , exam_date , exam_time , img
+    return pat_id , pat_name,  exam_date , exam_time , img
 
 
 def crop_margin_fundus(im):
