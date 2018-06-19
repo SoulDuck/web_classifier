@@ -37,6 +37,8 @@ def upload_file(request):
             #fnames=str(request.FILES['file']) for f in request.FILES.getlist('file'):
             for i,key in enumerate(request.FILES):
                 fname=str(request.FILES[key])
+                if i==1:
+                    raise AssertionError , '{}'.format(fname)
                 #img=Image.open(fname)
                 #assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
                 # load Image
