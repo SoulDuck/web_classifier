@@ -11,7 +11,7 @@ import json
 from django.core import serializers
 from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized
 from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
-
+import dicom
 # Create your views here.
 #/Users/seongjungkim/PycharmProjects/web_classifier/models
 #/home/ubuntu/web_classifier
@@ -21,10 +21,12 @@ model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456
 sess_ret_ops= load_model(model_path_ret)
 sess_gla_ops= load_model(model_path_gla)
 sess_cat_ops= load_model(model_path_cat)
-
-#sess ,pred_ , x_ , is_training_ , top_conv
-
 from django.views.decorators.csrf import csrf_exempt
+
+def handle_uploaded_file(f , savepath):
+    with open(savepath, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
 
 @csrf_exempt
 def upload_file(request):
@@ -46,20 +48,19 @@ def upload_file(request):
             """
             for i,key in enumerate(request.FILES):
                 fname=str(request.FILES[key])
-                #img=Image.open(fname)
-                #assert img == 3 , "{} {} {} {} {}".format(type(img) , np.shape(img)  ,type(fname) , key , type(key))
+                file=request.FILES[key]
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
-                # Save Image
-                img = Image.open(request.FILES[key])
-                img.save(f_path)
-
 
                 pat_id, pat_name , exam_date, exam_time = None , None , None ,None
                 # dicom check
                 if dicom_checker(f_path):
+                    handle_uploaded_file( f=file, savepath= f_path)
                     pat_id, pat_name ,exam_date, exam_time , img = get_patinfo(f_path)
+
                 else: # PNG , JPEG , JPG ...etc
+                    img = Image.open(request.FILES[key])
+                    img.save(f_path)
                     img = Image.open(f_path)
                 # LR_checker
                 LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
