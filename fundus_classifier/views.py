@@ -8,6 +8,7 @@ from PIL import Image
 import numpy as np
 import os
 import json
+import tensorflow as tf
 from django.core import serializers
 from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized
 from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
@@ -15,6 +16,7 @@ import dicom
 # Create your views here.
 #/Users/seongjungkim/PycharmProjects/web_classifier/models
 #/home/ubuntu/web_classifier
+tf.reset_default_graph()
 model_path_ret= '/home/ubuntu/web_classifier/models/step_23300_acc_0.892063558102/model'
 model_path_gla= '/home/ubuntu/web_classifier/models/step_34200_acc_0.882777810097/model'
 model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456/model'

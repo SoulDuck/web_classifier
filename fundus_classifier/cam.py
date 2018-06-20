@@ -15,10 +15,6 @@ import matplotlib.pyplot as plt
 import numpy as np; np.random.seed(0)
 import seaborn as sns;sns.set()
 
-
-
-
-
 def get_class_map(name,x , cam_ind , im_width):
     out_ch = int(x.get_shape()[-1])
     conv_resize=tf.image.resize_bilinear(x,[im_width , im_width])
