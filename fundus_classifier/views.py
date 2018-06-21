@@ -66,17 +66,17 @@ def upload_file(request):
                 img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
                 img = clahe_equalized(img)
 
-                #value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
+                value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
                 value_ret, value_gla, value_cat = 0.3 , 0.7 ,0.3
 
 
                 actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
                 actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
                 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-                #actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
-                #                 logits_ret, actmap_dir)
-                original_path = './delteme.png'
-                actmap_path = './delteme.png'
+                actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
+                                 logits_ret, actmap_dir)
+                #original_path = './delteme.png'
+                #actmap_path = './delteme.png'
 
                 actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
                 original_path=original_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
