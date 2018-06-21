@@ -56,13 +56,12 @@ def upload_file(request):
 
                 pat_id, pat_name , exam_date, exam_time = None , None , None ,None
                 # dicom check
+                handle_uploaded_file(f=file, savepath=f_path)
                 if dicom_checker(f_path):
-                    handle_uploaded_file( f=file, savepath= f_path)
                     pat_id, pat_name ,exam_date, exam_time , img = get_patinfo(f_path)
-
                 else: # PNG , JPEG , JPG ...etc
                     img = Image.open(request.FILES[key])
-                    img.save(f_path)
+                    #img.save(f_path)
                     img = Image.open(f_path)
                 # LR_checker
                 LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
