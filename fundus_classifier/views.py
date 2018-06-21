@@ -10,7 +10,7 @@ import os
 import json
 import tensorflow as tf
 from django.core import serializers
-from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized
+from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized , sess_ret_ops , sess_gla_ops , sess_cat_ops
 from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
 import dicom
 # Create your views here.
