@@ -16,13 +16,6 @@ import dicom
 # Create your views here.
 #/Users/seongjungkim/PycharmProjects/web_classifier/models
 #/home/ubuntu/web_classifier
-tf.reset_default_graph()
-model_path_ret= '/home/ubuntu/web_classifier/models/step_23300_acc_0.892063558102/model'
-model_path_gla= '/home/ubuntu/web_classifier/models/step_34200_acc_0.882777810097/model'
-model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456/model'
-sess_ret_ops= load_model(model_path_ret)
-sess_gla_ops= load_model(model_path_gla)
-sess_cat_ops= load_model(model_path_cat)
 from django.views.decorators.csrf import csrf_exempt
 
 def handle_uploaded_file(f , savepath):

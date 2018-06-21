@@ -218,3 +218,12 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         #plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
         return '{}/blend_actmap.png'.format(save_dir) ,'{}/original_image.png'.format(save_dir)
 
+
+# Session Start , load graph
+tf.reset_default_graph()
+model_path_ret= '/home/ubuntu/web_classifier/models/step_23300_acc_0.892063558102/model'
+model_path_gla= '/home/ubuntu/web_classifier/models/step_34200_acc_0.882777810097/model'
+model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456/model'
+sess_ret_ops= load_model(model_path_ret)
+sess_gla_ops= load_model(model_path_gla)
+sess_cat_ops= load_model(model_path_cat)
