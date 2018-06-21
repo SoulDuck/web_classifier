@@ -8,7 +8,14 @@ def check_LR():
 
 def dicom_checker(path):
     assert type(path) == str , 'path type is must be str '
-    return path.endswith('.dcm')
+    dicom_flag= False
+    try:
+        dicom.read_file(path)
+        dicom_flag = True
+    except dicom.errors.InvalidDicomError:
+        dicom_flag = False
+
+    return dicom_flag
 
 def check_image(path):
     try:
