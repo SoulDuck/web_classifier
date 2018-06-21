@@ -71,10 +71,8 @@ def upload_file(request):
                 actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
                 actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
                 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-                #actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
-                #                 logits_ret, actmap_dir)
-                actmap_path='delete.me'
-                original_path = 'delete.me'
+                actmap_path , origina_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
+                                 logits_ret, actmap_dir)
 
                 actmap_path=actmap_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
                 original_path=original_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
