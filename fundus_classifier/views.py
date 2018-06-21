@@ -6,6 +6,7 @@ import web_classifier.settings as settings
 from forms import *
 from PIL import Image
 import numpy as np
+import time
 import os
 import json
 import tensorflow as tf
@@ -80,6 +81,8 @@ def upload_file(request):
                               'is_dicom':dicom_checker(f_path) , 'origin_path':origina_path , 'fname':str(fname)}
                 ret_json.append(ret_values)
             ret_json=json.dumps(ret_json)
+            time.sleep(0.5)
+
             return JsonResponse(ret_json , safe = False)
     else:
         form = UploadForm()
