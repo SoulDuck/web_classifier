@@ -66,8 +66,8 @@ def upload_file(request):
                 img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
                 img = clahe_equalized(img)
 
+                #value_ret, value_gla, value_cat = 0.3 , 0.7 ,0.3
                 value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
-                value_ret, value_gla, value_cat = 0.3 , 0.7 ,0.3
 
 
                 actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
