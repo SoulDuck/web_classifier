@@ -15,7 +15,11 @@ import matplotlib.pyplot as plt
 from utils import crop_margin_fundus
 def load_model(model_path):
     graph=tf.Graph()
-    sess = tf.Session(graph = graph)
+    session_conf = tf.ConfigProto(
+        intra_op_parallelism_threads=1,
+        inter_op_parallelism_threads=1)
+    #
+    sess = tf.Session(graph = graph,config=session_conf)
     with graph.as_default():
         saver = tf.train.import_meta_graph(meta_graph_or_file=model_path+'.meta' , clear_devices=True) #example model path ./models/fundus_300/5/model_1.ckpt
         saver.restore(sess, save_path=model_path) # example model path ./models/fundus_300/5/model_1.ckpt
