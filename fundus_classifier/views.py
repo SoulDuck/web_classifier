@@ -11,7 +11,7 @@ import os
 import json
 import tensorflow as tf
 from django.core import serializers
-from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized , sess_ret_ops , sess_gla_ops , sess_cat_ops
+from eval import  load_model  , get_pred , eval_inspect_cam , clahe_equalized , sess_ret_ops , sess_gla_ops , sess_cat_ops , detect_brigthArtifact , detect_darkArtifact
 from utils import get_patinfo , dicom_checker , fundus_laterality , crop_margin_fundus
 import dicom
 # Create your views here.
@@ -61,6 +61,17 @@ def upload_file(request):
                 LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
                 print LR
 
+
+                # Bright  Artifect Detect
+                artifact_flag = False
+                if detect_brigthArtifact(img) > 2:
+                    artifact_flag = True
+                if detect_darkArtifact(img) > 2:
+                    artifact_flag = True
+
+
+                # Dark Artifect Detect
+
                 img = crop_margin_fundus(img)
                 # Multiple Images
                 img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
@@ -82,7 +93,7 @@ def upload_file(request):
                 original_path=original_path.replace(actmap_dir, 'http://52.79.122.106:8000/media/actmap')
                 ret_values = {'value_ret': float(value_ret), 'value_gla': float(value_gla), 'value_cat': float(value_cat), 'LR': LR,
                      'actmap_path': actmap_path ,'patient_id':pat_id, 'patient_name':pat_name , 'exam_date' :exam_date, 'exam_time':exam_time  ,
-                              'is_dicom':dicom_checker(f_path) , 'origin_path':original_path , 'fname':str(fname)}
+                              'is_dicom':dicom_checker(f_path) , 'origin_path':original_path , 'fname':str(fname) , 'artifact':artifact_flag}
                 ret_json.append(ret_values)
             ret_json=json.dumps(ret_json)
 
