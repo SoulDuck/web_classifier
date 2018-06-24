@@ -65,9 +65,9 @@ def upload_file(request):
                 # Bright  Artifect Detect
                 artifact_flag = False
                 np_img=np.asarray(img)
-                if detect_brigthArtifact(np_img) > 2:
+                if detect_brigthArtifact(np_img) > 0.15:
                     artifact_flag = True
-                if detect_darkArtifact(np_img) > 2:
+                if detect_darkArtifact(np_img) > 0.15:
                     artifact_flag = True
 
 

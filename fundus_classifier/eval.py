@@ -222,6 +222,7 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         #plt.imsave('{}/blend_img.png'.format(save_dir), Image.fromarray(blend_img))
         return '{}/blend_actmap.png'.format(save_dir) ,'{}/original_image.png'.format(save_dir)
 def detect_brigthArtifact(np_img):
+
     img = np_img
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
