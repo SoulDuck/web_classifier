@@ -82,8 +82,10 @@ def upload_file(request):
 
                 actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
                 actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
+
+                np_ori_img =  np.asarray(ori_cropped_img).reshape([1]+list(np.shape(ori_cropped_img)))
                 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-                actmap_path , original_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
+                actmap_path , original_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_ori_img, x_ret, y_ret, is_training_ret,
                                  logits_ret, actmap_dir)
                 #original_path = './delteme.png'
                 #actmap_path = './delteme.png'
