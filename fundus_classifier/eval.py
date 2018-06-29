@@ -120,10 +120,11 @@ def overlay(actmap , ori_img ,save_path , factor):
 
 def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_train, y , save_root_folder):
 
-
+    """
     for img in test_imgs:
         img=Image.fromarray(img)
         crop_margin_fundus(img)
+    """
     if test_imgs.max() > 1 :
         test_imgs=test_imgs/255.
 
@@ -163,15 +164,11 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
         except Exception as e :
             print e;
 
-
-
-
         # Check Image Channel
         if test_imgs[s].shape[-1]==1:
             plt.imsave('{}/original_image.png'.format(save_dir) ,test_imgs[s].reshape([test_imgs[s].shape[0] \
                                                                                       , test_imgs.shape[1]]))
         else :
-
             img=Image.fromarray((test_imgs[s]*255).astype('uint8'))
             print np.max(img)
 
