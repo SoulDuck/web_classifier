@@ -1,4 +1,4 @@
-import requests
+import
 import dicom
 from PIL import Image
 import glob

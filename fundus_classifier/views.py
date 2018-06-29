@@ -67,15 +67,13 @@ def upload_file(request):
                 np_img=np.asarray(img)
                 if detect_brigthArtifact(np_img) > 0.15:
                     artifact_flag = True
+                # Dark Artifect Detect
                 if detect_darkArtifact(np_img) > 0.15:
                     artifact_flag = True
 
-
-                # Dark Artifect Detect
-
-                img = crop_margin_fundus(img)
+                ori_cropped_img = crop_margin_fundus(img)
                 # Multiple Images
-                img = np.asarray(img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
+                img = np.asarray(ori_cropped_img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
                 img = clahe_equalized(img)
 
                 #value_ret, value_gla, value_cat = 0.3 , 0.7 ,0.3
