@@ -192,8 +192,9 @@ def eval_inspect_cam(sess, cam ,cam_ind, top_conv ,test_imgs , x, y_ ,phase_trai
 
         # Actmap Resize From (300 , 300 ) to Original Image Size
         cam_ans_abnormal, = map(lambda x: np.squeeze(x), [cam_ans_abnormal]) # (1,90000,1)
-        cam_ans_abnormal = cam_ans_abnormal.reshape([img.shape[1], img.shape[2]]) # (300,300)
 
+        cam_ans_abnormal = cam_ans_abnormal.reshape([img.shape[1], img.shape[2]]) # (300,300)
+        #bilinear resize image
         cam_ans_abnormal = Image.fromarray(cam_ans_abnormal).resize((test_imgs[s].shape[1], test_imgs[s].shape[0]),
                                                                     Image.ANTIALIAS)
         cam_ans_abnormal = np.asarray(cam_ans_abnormal)
