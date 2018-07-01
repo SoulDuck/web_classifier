@@ -76,17 +76,25 @@ def upload_file(request):
                 img = np.asarray(ori_cropped_img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
                 img = clahe_equalized(img)
 
-                #value_ret, value_gla, value_cat = 0.3 , 0.7 ,0.3
+                # validate Model , get Prediction E.g) 0.7 ,0.5 ,0.4
                 value_ret, value_gla , value_cat = get_pred(img , sess_ret_ops , sess_gla_ops ,sess_cat_ops)
 
 
                 actmap_dir = '/Users/seongjungkim/PycharmProjects/web_classifier/media/actmap'
                 actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
 
-                np_ori_img =  np.asarray(ori_cropped_img).reshape([1]+list(np.shape(ori_cropped_img)))
+                # Crop and Resize Numpy Image , Original Image
+                np_cropped_ori_img =  np.asarray(ori_cropped_img).reshape([1]+list(np.shape(ori_cropped_img)))
+                if np.shape(np_cropped_ori_img)[0] > 800 :
+                    np_cropped_ori_img=Image.fromarray(np_cropped_ori_img.astype('uint8')).resize((800,800) , Image.ANTIALIAS)
+
+                # Resized Image by (300 x 300)
                 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-                actmap_path , original_path =eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_ori_img, x_ret, y_ret, is_training_ret,
-                                 logits_ret, actmap_dir)
+
+                # Get Activation Map
+                actmap_path, original_path = eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret,
+                                                              np_cropped_ori_img, x_ret, y_ret, is_training_ret,
+                                                              logits_ret, actmap_dir)
                 #original_path = './delteme.png'
                 #actmap_path = './delteme.png'
 

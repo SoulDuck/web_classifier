@@ -33,8 +33,6 @@ for path in paths:
         data = {"patient_id":pat_code,"exam_date":date}
         response = s.post(url,files=files,data=data)
         print response
-
-
 exit()
 """
 for path in paths:
