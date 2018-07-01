@@ -84,13 +84,11 @@ def upload_file(request):
                 actmap_dir = '/home/ubuntu/web_classifier/media/actmap'
 
                 # Crop and Resize Numpy Image , Original Image
+                if np.shape(ori_cropped_img)[0] > 800 :
+                    # Resize Image
+                    np_cropped_ori_img = np.asarray(ori_cropped_img.resize((800, 800), Image.ANTIALIAS))
                 np_cropped_ori_img =  np.asarray(ori_cropped_img).reshape([1]+list(np.shape(ori_cropped_img)))
-                print np.shape(np_cropped_ori_img)
-                if np.shape(np_cropped_ori_img)[1] > 800 :
-                    print np.shape(np_cropped_ori_img)
-                    print np.max(np_cropped_ori_img)
-                    cropped_ori_img=Image.fromarray(np_cropped_ori_img.astype('uint8'))
-                    np_cropped_ori_img = cropped_ori_img.resize((800,800) , Image.ANTIALIAS)
+
 
 
 
