@@ -87,6 +87,8 @@ def upload_file(request):
                 np_cropped_ori_img =  np.asarray(ori_cropped_img).reshape([1]+list(np.shape(ori_cropped_img)))
                 if np.shape(np_cropped_ori_img)[0] > 800 :
                     np_cropped_ori_img=Image.fromarray(np_cropped_ori_img.astype('uint8')).resize((800,800) , Image.ANTIALIAS)
+                    print np.shape(np_cropped_ori_img)
+                    print np.max(np_cropped_ori_img)
 
                 # Resized Image by (300 x 300)
                 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
