@@ -6,7 +6,7 @@ import glob , os
 #### login ######
 
 url = "http://ec2-13-209-32-216.ap-northeast-2.compute.amazonaws.com/login"
-data = {"member_id":"1234","member_pw":"1234"}
+data = {"member_id":"aptos2018","member_pw":"q1w2e3r4"}
 
 s = requests.Session()
 s.post(url, data=data)
@@ -18,7 +18,7 @@ s.post(url, data=data)
 
 url = "http://ec2-13-209-32-216.ap-northeast-2.compute.amazonaws.com/upload"
 
-paths=glob.glob('/Users/seongjungkim/Desktop/glaucoma_training/*.png')
+paths=glob.glob('/Users/seongjungkim/Desktop/Test/*.png')
 for path in paths:
     img_dir  , name=os.path.split(path)
     name=os.path.splitext(name)[0]

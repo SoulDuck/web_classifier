@@ -56,7 +56,7 @@ def upload_file(request):
                 else: # PNG , JPEG , JPG ...etc
                     img = Image.open(request.FILES[key])
                     #img.save(f_path)
-                    img = Image.open(f_path)
+                    img = Image.open(f_path).convert('RGB')
                 # LR_checker
                 LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
                 print LR
