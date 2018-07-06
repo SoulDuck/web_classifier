@@ -29,7 +29,6 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST , request.FILES)
         sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret, logits_ret = sess_ret_ops
-        start_time = time.time()
         if form.is_valid():
             form.save()
             ret_json = []
@@ -42,6 +41,7 @@ def upload_file(request):
             assert fnames == 3, '{}'.format(fnames)
             """
             for i,key in enumerate(request.FILES):
+                start_time = time.time()
                 fname=str(request.FILES[key])
                 file=request.FILES[key]
                 # load Image
@@ -89,11 +89,10 @@ def upload_file(request):
 
                 # Resized Image by (300 x 300)
                 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
-
-                # Get Activation Map
                 consume_time = time.time() - start_time
                 print 'Consume time for Inference {}'.format(consume_time)
 
+                # Get Activation Map
                 activate_time = time.time()
                 actmap_path, original_path = eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret,
                                                               np_cropped_ori_img, x_ret, y_ret, is_training_ret,
