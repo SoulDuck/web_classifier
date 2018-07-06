@@ -67,16 +67,16 @@ files={}
 result={}
 f=open('retina_test.txt','w')
 neg_count  =0
-path = '2908521_20160809_R.png.png'
 
-files = {'file': open(path)}
-post_value=requests.post(url, files=files)
-print post_value.json()
+paths =glob.glob('/Users/seongjungkim/Desktop/artifact_/darkness/*.png')
 
-img=Image.open(path)
-img=np.asarray(img)
-print detect_brigthArtifact(img)
-print detect_darkArtifact(img)
-img=Image.open('./abnormal_sample.png')
-img=Image.open('./normal_sample.png')
-print np.shape(img)
+for path in paths:
+    print path
+    files = {'file': open(path)}
+    post_value=requests.post(url, files=files)
+    print post_value.json()
+    img=Image.open(path)
+    img=np.asarray(img)
+    print detect_brigthArtifact(img)
+    print detect_darkArtifact(img)
+

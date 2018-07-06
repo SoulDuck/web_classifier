@@ -38,8 +38,6 @@ def upload_file(request):
             for i ,key in enumerate(request.FILES):
                 fname = str(request.FILES[key])
                 fnames.append(fname)
-
-
             assert fnames == 3, '{}'.format(fnames)
             """
             for i,key in enumerate(request.FILES):
@@ -47,7 +45,6 @@ def upload_file(request):
                 file=request.FILES[key]
                 # load Image
                 f_path=os.path.join(settings.MEDIA_ROOT , fname)
-
                 pat_id, pat_name , exam_date, exam_time = None , None , None ,None
                 # dicom check
                 handle_uploaded_file(f=file, savepath=f_path)
@@ -59,16 +56,13 @@ def upload_file(request):
                     img = Image.open(f_path).convert('RGB')
                 # LR_checker
                 LR = fundus_laterality(img) # 0 : LEFT , 1 L RIGHT
-                print LR
-
-
                 # Bright  Artifect Detect
                 artifact_flag = False
                 np_img=np.asarray(img)
-                if detect_brigthArtifact(np_img) > 0.15:
+                if detect_brigthArtifact(np_img) > 0.02:
                     artifact_flag = True
                 # Dark Artifect Detect
-                if detect_darkArtifact(np_img) > 0.15:
+                if detect_darkArtifact(np_img) > 0.02:
                     artifact_flag = True
 
                 ori_cropped_img = crop_margin_fundus(img)
