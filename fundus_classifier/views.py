@@ -29,6 +29,7 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST , request.FILES)
         sess_ret, pred_op_ret, x_ret, y_ret, is_training_ret, top_conv_ret, cam_ret, cam_ind_ret, logits_ret = sess_ret_ops
+        start_time = time.time()
         if form.is_valid():
             form.save()
             ret_json = []
@@ -100,7 +101,8 @@ def upload_file(request):
                               'is_dicom':dicom_checker(f_path) , 'origin_path':original_path , 'fname':str(fname) , 'artifact':artifact_flag}
                 ret_json.append(ret_values)
             ret_json=json.dumps(ret_json)
-
+            consume_time = time.time() - start_time
+            print consume_time
 
             return JsonResponse(ret_json , safe = False)
     else:

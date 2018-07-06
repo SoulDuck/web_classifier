@@ -19,3 +19,4 @@ np.shape(img)
 np_img=np.asarray(img).reshape([1]+list(np.shape(img)))
 actmap_path=eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret, np_img, x_ret, y_ret, is_training_ret,
                              logits_ret, '../media/actmap')
+

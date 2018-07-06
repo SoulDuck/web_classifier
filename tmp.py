@@ -6,6 +6,7 @@ import glob
 import os , shutil
 import cv2
 import numpy as np
+
 def detect_brigthArtifact(np_img):
 
     img = np_img
@@ -68,15 +69,25 @@ result={}
 f=open('retina_test.txt','w')
 neg_count  =0
 
-paths =glob.glob('/Users/seongjungkim/Desktop/artifact_/darkness/*.png')
-
+paths =glob.glob('/Users/seongjungkim/Desktop/artifact_1/*.jpg')
+savedir='/Users/seongjungkim/Desktop/artifact'
 for path in paths:
-    print path
     files = {'file': open(path)}
     post_value=requests.post(url, files=files)
     print post_value.json()
-    img=Image.open(path)
-    img=np.asarray(img)
-    print detect_brigthArtifact(img)
-    print detect_darkArtifact(img)
+    print
+    if 'artifact": true' in post_value.json():
+        print path
+
+        img=np.asarray(Image.open(path))
+        b_value=detect_brigthArtifact(img)
+        d_value = detect_darkArtifact(img)
+        print 'Bright Value : {} , Dark Value : {}'.format(b_value , d_value)
+
+        #shutil.copy(path , savedir)
+
+
+
+
+
 
