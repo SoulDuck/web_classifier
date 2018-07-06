@@ -92,7 +92,7 @@ def upload_file(request):
 
                 # Get Activation Map
                 consume_time = time.time() - start_time
-                print consume_time
+                print 'Consume time for Inference {}'.format(consume_time)
                 actmap_path, original_path = eval_inspect_cam(sess_ret, cam_ret, cam_ind_ret, top_conv_ret,
                                                               np_cropped_ori_img, x_ret, y_ret, is_training_ret,
                                                               logits_ret, actmap_dir)
