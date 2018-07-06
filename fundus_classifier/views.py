@@ -68,7 +68,7 @@ def upload_file(request):
                 if detect_darkArtifact(np_img) > 0.02:
                     artifact_flag = True
                 artifact_consume=time.time() - artifact_time
-                print artifact_consume
+                print 'artifact consume time : {}'.format(artifact_consume)
                 ori_cropped_img = crop_margin_fundus(img)
                 # Multiple Images
                 img = np.asarray(ori_cropped_img.resize([300, 300], Image.ANTIALIAS).convert('RGB'))
