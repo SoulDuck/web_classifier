@@ -27,11 +27,7 @@ def detect_brigthArtifact(np_img):
     # artifact가　총　면적의　２％　이상이면　검출되었다고　판단
     #artfect 검출
     artifact_ratio = mark.sum() / (mark.shape[0] * mark.shape[1])
-
-
     return artifact_ratio
-
-
 """
 # Bright Spot imag except outside
 # 외곽의　기준을　ratio = 0.99로　잡음　（ 대부분　이미지가　외각의　경우　좀　더　밝게　찍힘　그래서　그건　무시）
@@ -39,7 +35,6 @@ part = np.zeros(gray.shape, dtype=np.uint8)
 center_pos = np.array(gray.shape[:2]) // 2
 radius = int(center_pos.min() * 0.99)
 cv2.circle(part, tuple(center_pos), radius, 1, -1)
-
 mark = cv2.bitwise_and(mark, mark, mask=part)
 """
 
