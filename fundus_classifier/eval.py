@@ -311,7 +311,6 @@ tf.reset_default_graph()
 model_path_ret= '/home/ubuntu/web_classifier/models/step_23300_acc_0.892063558102/model'
 model_path_gla= '/home/ubuntu/web_classifier/models/step_34200_acc_0.882777810097/model'
 model_path_cat= '/home/ubuntu/web_classifier/models/step_6300_acc_0.966666698456/model'
-
 model_path_cat_advance= '/home/ubuntu/web_classifier/models/cata_advance/model-15840'
 
 
